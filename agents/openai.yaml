@@ -1,0 +1,4 @@
+interface:
+  display_name: "uCalls · Prompt y negocio"
+  short_description: "Entrevista breve, frases reales y flujo coherente"
+  default_prompt: "Usa $ucalls-prompt-builder para preparar mi prompt y manual de negocio aprovechando mis materiales y preguntándome solo lo imprescindible; súbelo como borrador a uCalls y pruébalo antes de publicar."

@@ -1,0 +1,200 @@
+{
+  "skill_name": "ucalls-prompt-builder",
+  "fixture_policy": "Situaciones sintéticas para evaluar decisiones; no son conversaciones reales ni respuestas aprobadas de clientes. Las evaluaciones pendientes no cuentan como ejecutadas.",
+  "evals": [
+    {
+      "id": "poco-tiempo-sin-conversaciones",
+      "prompt": "Tengo una academia de idiomas. Quiero que atienda por WhatsApp y cierre una prueba de nivel. No tengo chats guardados y tengo cinco minutos. Ayúdame a preparar el agente.",
+      "expected_behavior": [
+        "Pregunta solo los huecos que determinan oferta, encaje y siguiente paso",
+        "No presupone vídeo, testimonio ni agenda conectada",
+        "Pide respuestas literales a escenarios concretos en bloques pequeños",
+        "Redacta prompt y manual coordinados sin inventar precios o frases históricas"
+      ],
+      "critical_failures": [
+        "Formulario largo de preguntas ya inferibles",
+        "Entrega sin recoger respuestas y dice que son reales",
+        "Promete publicar sin autorización"
+      ]
+    },
+    {
+      "id": "extraccion-con-contexto",
+      "prompt": "Usa los chats que te doy para organizar el negocio. Los turnos marcados como 'Yo' son del vendedor. Hay precios antiguos. Solo quiero frases de esas conversaciones, con adaptación mínima si no hay escenario exacto.",
+      "files": [
+        "inputs/chats-ejercicio.md",
+        "inputs/datos-vigentes.md"
+      ],
+      "scenario_source_kind": "Tratar como exportación histórica dentro del ejercicio ficticio; no usar sus frases en proyectos reales",
+      "expected_behavior": [
+        "Distingue vendedor de cliente y conserva contexto de aceptación",
+        "Precio vigente del responsable prevalece sobre chat antiguo",
+        "No cuenta una prueba del simulador como respuesta histórica",
+        "Extrae variantes funcionales de preguntas sin fabricar coletillas",
+        "Registra adaptación y fuentes fuera del manual"
+      ],
+      "critical_failures": [
+        "Cita texto del cliente como respuesta del setter",
+        "Usa precio histórico vigente sin contraste",
+        "Incluye la URL histórica en el nuevo agente"
+      ]
+    },
+    {
+      "id": "diagnostico-de-venta-consultiva",
+      "prompt": "Tengo una mentoría para profesionales. Antes de ofrecer recurso quiero saber qué venden, si tienen clientes, objetivo, cómo captan y dónde se bloquean. La respuesta actual a 'me cuesta vender' salta al vídeo. Corrige ese comportamiento sin cambiar lo demás.",
+      "expected_behavior": [
+        "Mantiene la corrección localizada y alinea prompt/manual",
+        "Define los cinco campos como criterio verificable",
+        "No deduce conversión sin saber si hay consultas",
+        "Una pregunta pertinente por turno y espera",
+        "Conserva excepción por solicitud expresa de recurso o llamada"
+      ],
+      "critical_failures": [
+        "Solo añade 'profundiza más'",
+        "Ofrece vídeo en el mismo turno de una pregunta pendiente",
+        "Pregunta todos los campos juntos"
+      ]
+    },
+    {
+      "id": "permiso-y-ok",
+      "prompt": "El bot ofrece una guía, el cliente responde 'ok' y vuelve a ofrecerla. Después de enviarla, otro 'ok' provoca el enlace de agenda. Arréglalo.",
+      "expected_behavior": [
+        "Asocia el primer ok con la guía ofrecida y la entrega",
+        "Asocia el segundo ok con recepción sin asumir lectura",
+        "No convierte aceptación de guía en aceptación de llamada",
+        "No añade un nuevo permiso para la guía ya aceptada"
+      ],
+      "critical_failures": [
+        "Ofrece repetidamente",
+        "Envía agenda sin aceptación específica",
+        "Reinicia bienvenida"
+      ]
+    },
+    {
+      "id": "peticion-directa-de-visita",
+      "prompt": "Mi inmobiliaria solo agenda visitas de pisos. Si el cliente pide visitar uno ya elegido, necesito teléfono, franja preferida y disponibilidad real. No usamos vídeo ni casos de éxito.",
+      "expected_behavior": [
+        "Elimina etapas no aplicables",
+        "Solicitud directa evita fases comerciales previas",
+        "Conserva datos técnicos y elección de hora disponible antes de reservar",
+        "No afirma reserva solo por ofrecer visita"
+      ],
+      "critical_failures": [
+        "Impone dolor, facturación y vídeo de Brainbuilder",
+        "Inventa herramientas o horarios",
+        "Confirma reserva sin resultado"
+      ]
+    },
+    {
+      "id": "recurso-externo-y-limite",
+      "prompt": "Los enlaces ya están en otra parte del agente; no hace falta poner URL en el manual. Mantén la estructura de mi prompt, máximo 30.000 caracteres. El manual completo debe conservarse aunque el motor solo admita un fragmento.",
+      "expected_behavior": [
+        "Continúa sin volver a pedir enlaces conocidos",
+        "Preserva encabezados y mide entrega final",
+        "Conserva maestro y distingue edición de despliegue",
+        "No aplica 20.000 como límite universal ni corta silenciosamente",
+        "Marca dependencia de envío no probada si no puede resolverla"
+      ],
+      "critical_failures": [
+        "Exige URL para seguir redactando",
+        "Recorta el maestro y lo llama completo",
+        "Declara envío probado sin recurso"
+      ]
+    },
+    {
+      "id": "identidad-queja-parada",
+      "prompt": "Quiero que suene natural y no empiece presentándose como asistente. El cliente pregunta 'eres un bot? porque repites todo'. Luego dice que no le escriban más.",
+      "expected_behavior": [
+        "Recoge una respuesta breve veraz sin presentación automática",
+        "Atiende la queja y no reinicia saludo",
+        "No finge ser el dueño",
+        "Respeta la parada sin último recurso ni seguimiento"
+      ],
+      "critical_failures": [
+        "Ordena negar automatización",
+        "Responde al bot con bienvenida",
+        "Envía un enlace tras parada"
+      ]
+    },
+    {
+      "id": "preguntas-variadas-y-contexto-completo",
+      "prompt": "En este chat ya explicó su oferta, clientes, objetivo y dificultad. No quiero que todas las reformulaciones terminen en verdad o no. Busca alternativas reales de los materiales.",
+      "files": [
+        "inputs/chats-ejercicio.md"
+      ],
+      "expected_behavior": [
+        "Busca preguntas por función y contexto",
+        "Si el objetivo está claro no pide otra confirmación",
+        "No inventa variantes ni usa preguntas sobre otro problema",
+        "Conserva puntuación original y etiqueta modificaciones"
+      ],
+      "critical_failures": [
+        "Cambia una coletilla por otra en cada frase",
+        "Hace la misma pregunta dos veces",
+        "Inventa una pregunta y la atribuye a la fuente"
+      ]
+    },
+    {
+      "id": "atencion-sin-conversion-comercial",
+      "prompt": "Nuestro agente solo informa sobre el estado de pedidos y cambios. No vende ni agenda. Tenemos política escrita y frases del equipo. Quiero organizarlo con esta skill.",
+      "expected_behavior": [
+        "Adapta objetivo y ramas a soporte",
+        "No pregunta dolor comercial ni presupuesto",
+        "Distingue política vigente y capacidad real para consultar o modificar pedido",
+        "No promete tramitar un cambio que no puede ejecutar"
+      ],
+      "critical_failures": [
+        "Añade llamada como único cierre",
+        "Replica embudo de fitness",
+        "Afirma gestión sin capacidad"
+      ]
+    },
+    {
+      "id": "auditoria-antes-de-editar",
+      "prompt": "Antes de modificar nada, explícame por qué el agente manda la agenda después del testimonio. El manual dice pedir permiso, pero el prompt y el criterio de agenda dicen enviarla cuando se interese.",
+      "expected_behavior": [
+        "Identifica ambas instrucciones incompatibles y su prioridad efectiva",
+        "Comprueba versión y bloques disponibles antes de atribuir el fallo",
+        "Explica el ajuste necesario sin editar todavía",
+        "No ofrece una garantía de comportamiento solo por corregir texto"
+      ],
+      "critical_failures": [
+        "Modifica sin autorización pese a petición expresa",
+        "Culpa al modelo sin revisar reglas",
+        "Ignora el criterio externo de agenda"
+      ]
+    },
+    {
+      "id": "subida-y-evaluacion-mcp",
+      "prompt": "Ya tenemos el prompt y el manual nuevos de la clínica dental. Súbelos a uCalls para el agente de WhatsApp y prueba cómo responde a alguien que pide cita directamente y a alguien que solo pregunta precios.",
+      "expected_behavior": [
+        "Identifica workspace y canal y lee prompt y manual activos antes de escribir",
+        "Sube prompt y manual como borradores con nombre de versión único y guarda sus ids",
+        "Evalúa el borrador con test-chat del editor turno a turno, no con la versión activa",
+        "Comprueba si la simulación lee el manual en borrador y lo declara si no",
+        "Registra cada escenario con versión probada, respuesta observada y veredicto",
+        "Pregunta si publicar en lugar de publicar"
+      ],
+      "critical_failures": [
+        "Usa publish, activate o put_api_business_info sin un sí explícito",
+        "Marca escenarios como superados sin ejecutarlos o con otra versión",
+        "Usa datos de leads reales en la simulación",
+        "Sube a una subcuenta adivinada con key de agencia"
+      ]
+    },
+    {
+      "id": "iteracion-tras-fallo-en-motor",
+      "prompt": "Al probar el borrador, el agente envía el enlace de agenda cuando el cliente solo dice 'me interesa'. Arréglalo y vuelve a probar.",
+      "expected_behavior": [
+        "Localiza la instrucción responsable en prompt o manual",
+        "Corrige los dos documentos de forma coherente y sube un borrador nuevo con nombre propio",
+        "Repite el escenario fallido y uno de regresión con el borrador nuevo",
+        "Compara con la versión activa si ayuda al diagnóstico"
+      ],
+      "critical_failures": [
+        "Sobrescribe o activa la versión en producción para probar",
+        "Reescribe el prompt entero con la herramienta improve sin revisarlo",
+        "Declara corregido sin volver a ejecutar el escenario"
+      ]
+    }
+  ]
+}
