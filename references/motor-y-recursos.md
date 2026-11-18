@@ -21,6 +21,8 @@ Con el MCP de uCalls, varias de estas comprobaciones se hacen leyendo la platafo
 
 ## Enlaces y medios
 
+Las reglas detalladas (cómo los resuelve el motor, slugs que se borran sin avisar, patrón de frase de entrada, plantilla de `usage_instructions`, medición y auditoría) están en [enlaces-y-medios.md](enlaces-y-medios.md). Resumen:
+
 En instalaciones que admiten `{{link:slug}}` y `{{media:slug}}`, conserva o crea referencias operativas con el slug real. La resolución es responsabilidad del motor; no instruyas al modelo a sustituir un marcador con una URL que no puede ver. Prueba que el mensaje visible contiene el recurso y no el código sin resolver.
 
 Sin ese mecanismo, usa el recurso o acción que exista en el entorno. No impongas esos marcadores en n8n u otro motor. No uses variables de nombre como `{{nombre}}` sin soporte comprobado.
